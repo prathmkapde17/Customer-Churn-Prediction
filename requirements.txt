@@ -1,7 +1,5 @@
-flask==2.3.2
+Flask
 pandas==2.1.3
-scikit-learn==1.3.2
-numpy==1.26.2
-gunicorn==21.2.0
-xgboost==1.7.6
-imbalanced-learn==0.11.0
+numpy
+scikit-learn
+joblib
