@@ -1,74 +1,175 @@
-# 📉 Customer Churn Prediction 🚀
+# 📊 Telecom Customer Churn Prediction
 
-Predict whether a customer will churn using machine learning techniques! This project leverages a real-world telecom dataset to develop, train, and deploy a churn prediction model with both Flask and FastAPI for interactive inference.
+## 📌 Overview
+Customer churn is a critical challenge in the telecom industry — identifying customers likely to discontinue services allows companies to take preventive actions, improve retention, and minimize revenue loss.
+
+![FINAL APP]("C:\Users\Acer\Pictures\Screenshots\Screenshot 2025-08-12 192215.png")
+
+
+This **end-to-end machine learning project** predicts churn using the **Telco Customer Churn dataset**. It covers the complete ML pipeline:  
+✔ Data Cleaning & Preprocessing  
+✔ Exploratory Data Analysis (EDA)  
+✔ Feature Encoding & Scaling  
+✔ Handling Class Imbalance with SMOTE  
+✔ Model Training & Hyperparameter Tuning (Random Forest & XGBoost)  
+✔ Evaluation with multiple metrics  
+✔ Deployment as both **Flask Web App** and **FastAPI API**
 
 ---
 
-## 📦 Project Features
-
-- 📊 **Exploratory Data Analysis (EDA):** Visual insights to understand customer behavior.
-- 🧹 **Data Preprocessing:** Encoding categorical variables, feature scaling, and handling missing values.
-- 🤖 **Modeling:** Trained multiple models, with the best-performing.
-- 🌐 **Web Deployment:**
-  - `app.py` for a **Flask** web interface.
-  - `fastapi_app.py` for a **FastAPI** REST API.
-- ✅ **Prediction Outputs:** Whether the customer is likely to churn, and associated probability.
+## 📂 Dataset
+- **Source:** IBM Sample Telco Customer Churn dataset (`WA_Fn-UseC_-Telco-Customer-Churn.csv`)
+- **Features Include:**
+  - **Demographics:** Gender, SeniorCitizen, Partner, Dependents
+  - **Account Info:** Tenure, Contract type, Payment method
+  - **Services:** Phone service, Internet service, Streaming services
+  - **Billing:** MonthlyCharges, TotalCharges
+- **Target Variable:** `Churn` → Yes / No
 
 ---
 
-## 🛠 Tech Stack
+## 🛠 Technology Stack
+**Data & Modeling:**
+- Python, Pandas, NumPy
+- Matplotlib, Seaborn
+- Scikit-learn, XGBoost
+- imbalanced-learn (SMOTE)
 
-- **Python** 🐍
-- **Pandas, Scikit-learn, Pickle** for data manipulation & ML
-- **Flask** 🌐 (frontend deployment)
-- **FastAPI** ⚡ (API deployment)
+**Deployment:**
+- Flask (Web Form)
+- FastAPI (REST API)
+- Pickle for model serialization
+
+---
+
+## 📈 Workflow
+
+### 1. **Data Preprocessing**
+- Dropped `customerID`
+- Replaced blank `TotalCharges` with `0.0` and converted to float
+- Label encoded categorical features
+- Scaled numeric features (`tenure`, `MonthlyCharges`, `TotalCharges`) using StandardScaler
+
+### 2. **EDA**
+- Histograms & Boxplots for numeric variables
+- Count plots for categorical features
+- Correlation heatmap
+
+### 3. **Balancing Data**
+- Applied **SMOTE** to handle imbalanced churn labels
+
+### 4. **Model Training**
+- **Random Forest Classifier** & **XGBClassifier**
+- Tuned hyperparameters with **GridSearchCV**
+- Selected best model (Random Forest) for deployment
+
+### 5. **Evaluation Metrics**
+- Accuracy Score
+- ROC-AUC
+- Confusion Matrix
+- Classification Report
+
+### 6. **Deployment**
+- **Flask App:** Input form for customer details → shows churn prediction & probability  
+- **FastAPI App:** `/predict` endpoint → accepts JSON → responds with prediction & probability
+
+---
+
+## 📂 Project Structure
+
+📁 Telecom-Customer-Churn-Prediction
+│-- WA_Fn-UseC_-Telco-Customer-Churn.csv # Dataset
+│-- model_training.py # Data preprocessing + model training
+│-- app_flask.py # Flask web app
+│-- app_fastapi.py # FastAPI service
+│-- templates/
+│ └── index.html # Flask web form template
+│-- best_model.pkl # Saved churn prediction model
+│-- encoder.pkl # LabelEncoders for categorical data
+│-- scaler.pkl # StandardScaler for numeric data
+│-- requirements.txt # Project dependencies
+│-- README.md # Project documentation
+
+text
 
 ---
 
 ## 🚀 How to Run
 
-### 1. Install Dependencies
+### 1️⃣ Clone Repository
+git clone https://github.com/prathmkapde17/Telecom-Customer-Churn-Prediction.git
+cd Telecom-Customer-Churn-Prediction
 
-```bash
+text
+
+### 2️⃣ Install Dependencies
 pip install -r requirements.txt
-```
 
-### 2. Run Flask App
+text
 
-```bash
-python app.py
-```
+### 3️⃣ (Optional) Retrain Model
+python model_training.py
 
-Navigate to: `http://localhost:5000`
+text
 
-### 3. Run FastAPI App
+### 4️⃣ Run Flask Web App
+python app_flask.py
 
-```bash
-uvicorn fastapi_app:app --reload
-```
+text
+Go to: [**http://127.0.0.1:5000/**](http://127.0.0.1:5000/)
 
-Access API docs at: `http://127.0.0.1:8000/docs`
+### 5️⃣ Run FastAPI App
+uvicorn app_fastapi:app --reload
 
----
-
-## 📁 Dataset
-
-Used the **Telco Customer Churn** dataset:  
-`WA_Fn-UseC_-Telco-Customer-Churn.csv`  
-Includes features like tenure, internet services, contract type, and billing info.
+text
+API Endpoint: **POST** → `http://127.0.0.1:8000/predict`
 
 ---
 
-## 🧠 Prediction Logic
+## 📌 Example API Request
+{
+"gender": "Female",
+"SeniorCitizen": 0,
+"Partner": "Yes",
+"Dependents": "No",
+"tenure": 1,
+"PhoneService": "No",
+"MultipleLines": "No phone service",
+"InternetService": "DSL",
+"OnlineSecurity": "No",
+"OnlineBackup": "Yes",
+"DeviceProtection": "No",
+"TechSupport": "No",
+"StreamingTV": "No",
+"StreamingMovies": "No",
+"Contract": "Month-to-month",
+"PaperlessBilling": "Yes",
+"PaymentMethod": "Electronic check",
+"MonthlyCharges": 29.85,
+"TotalCharges": 29.85
+}
 
-Inputs are preprocessed (encoded + scaled), passed into the ML model, and results include:
-
-- 🎯 **Prediction:** "Churn" or "No Churn"
-- 📈 **Probability Score**
+text
 
 ---
 
-## 🙌 Acknowledgments
+## 📊 Sample Output
+Prediction: Churn
+Probability: 0.78
 
-Thanks to IBM for the open-source dataset.  
-Built with ❤️ by [prathmkapde17].
+text
+
+---
+
+## 🔮 Future Improvements
+- Add feature importance analysis using SHAP/LIME
+- Deploy to cloud (AWS/GCP/Azure)
+- Add data validation & logging for production
+- Containerize with Docker
+
+---
+
+## 👤 Author
+**Prathmesh Kapde**  
+📧 prathmkapde17@gmail.com  
+💼 Machine Learning & Data Science Enthusiast
