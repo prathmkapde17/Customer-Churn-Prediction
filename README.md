@@ -3,6 +3,9 @@
 ## 📌 Overview
 Customer churn is a critical challenge in the telecom industry — identifying customers likely to discontinue services allows companies to take preventive actions, improve retention, and minimize revenue loss.
 
+![FINAL APP]("C:\Users\Acer\Pictures\Screenshots\Screenshot 2025-08-12 192215.png")
+
+
 This **end-to-end machine learning project** predicts churn using the **Telco Customer Churn dataset**. It covers the complete ML pipeline:  
 ✔ Data Cleaning & Preprocessing  
 ✔ Exploratory Data Analysis (EDA)  
