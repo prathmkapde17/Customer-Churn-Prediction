@@ -1,5 +1,8 @@
 Flask
 pandas==2.0.3
 numpy
-scikit-learn
+scikit-learn==1.2.2
 joblib
+seaborn
+imbalanced-learn==0.10.1
+xgboost
